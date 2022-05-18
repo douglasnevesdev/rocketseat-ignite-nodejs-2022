@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Users API Documentation",
+    "description": "This is an API for Users Registration",
+    "version": "1.0.0",
+    "contact": {
+      "email": "d88.neves@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Criar um novo usuário",
+        "description": "Criar um novo usuário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Douglas Neves",
+                  "email": "d88.neves@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "123456",
+                    "admin": true,
+                    "name": "Douglas Neves",
+                    "email": "d88.neves@gmail.com",
+                    "created_at": "2021-10-20T17:50:00.000Z",
+                    "updated_at": "2021-10-20T17:50:00.000Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Usuário já existe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Usuário já existe."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Retorna todos os usuários",
+        "description": "Retorna todos os usuários",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    },
+                    "example": {
+                      "id": "123456",
+                      "admin": true,
+                      "name": "Douglas Neves",
+                      "email": "d88.neves",
+                      "created_at": "2021-10-20T17:50:27.059Z",
+                      "updated_at": "2021-10-20T17:50:27.059Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Sem permissão",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Você precisa ser um administrador para listar todos os usuários. "
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Listar um usuário",
+        "description": "Listar um usuário",
+        "parameters": [
+          {
+            "name": "user_id",
+            "description": "ID do usuário a ser listado",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "3868a408-dae3-48f8-ba99-c94dacc18215",
+                    "admin": true,
+                    "name": "douglas",
+                    "email": "d88.neves@gmail.com",
+                    "created_at": "2021-10-20T17:42:00.508Z",
+                    "updated_at": "2021-10-20T17:42:00.508Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Usuário não encontrado!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Tornar admin um usuário",
+        "description": "Tornar admin um usuário",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "admin": {
+                      "type": "boolean"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "created_at": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "id": "3868a408-dae3-48f8-ba99-c94dacc18215",
+                    "admin": true,
+                    "name": "douglas",
+                    "email": "d88.neves",
+                    "created_at": "2021-10-20T17:45:00.508Z",
+                    "updated_at": "2021-10-20T17:45:00.508Z"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "error": "Usuário não encontrado!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
